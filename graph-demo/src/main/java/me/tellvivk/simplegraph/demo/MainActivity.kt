@@ -1,4 +1,4 @@
-package me.tellvivk.simplegraph
+package me.tellvivk.simplegraph.demo
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

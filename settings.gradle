@@ -1,2 +1,3 @@
-include ':app'
+include ':graph-demo'
+include ':graph-library'
 rootProject.name = "SimpleGraph"
