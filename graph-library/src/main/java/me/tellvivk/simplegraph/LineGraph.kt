@@ -13,7 +13,12 @@ class LineGraph<T>(
     private val showGrid: Boolean = false
 ) : ILineGraph, FrameLayout(context) {
 
-    override fun refresh() {
+    override fun refresh(canvas: Canvas?) {
+        canvas?.let {
+
+            it.drawLine(0f, 10f, width.toFloat(), 10f, adapter.getTheme().getGridPaint())
+
+        }
 
     }
 
@@ -23,7 +28,7 @@ class LineGraph<T>(
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
-        refresh()
+        refresh(canvas)
     }
 
     override fun onDetachedFromWindow() {

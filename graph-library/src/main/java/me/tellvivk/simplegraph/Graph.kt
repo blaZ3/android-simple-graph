@@ -1,11 +1,12 @@
 package me.tellvivk.simplegraph
 
+import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 
 interface Graph {
 
-    fun refresh()
+    fun refresh(canvas: Canvas?)
     fun release()
 
 }
@@ -34,5 +35,9 @@ val defaultGraphTheme = object : GraphTheme {
 
     override fun getTextColor(): Int {
         return Color.BLACK
+    }
+
+    override fun getGridPaint(): Paint {
+        return Paint()
     }
 }

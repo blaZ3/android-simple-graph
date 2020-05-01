@@ -24,6 +24,7 @@ class MainActivity : AppCompatActivity() {
 
         linegraphFrame.removeAllViews()
         linegraphFrame.addView(lineGraph)
+        lineGraph.invalidate()
     }
 
 

@@ -7,7 +7,7 @@ interface GraphTheme {
     fun getBackgroundColor(): Int
     fun getBackgroundPaint(): Paint
     fun getTextColor(): Int
-
+    fun getGridPaint(): Paint
 }
 
 abstract class GraphAdapter<T> {
