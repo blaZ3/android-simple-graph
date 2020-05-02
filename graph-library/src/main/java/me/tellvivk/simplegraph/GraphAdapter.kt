@@ -4,11 +4,11 @@ import android.graphics.Paint
 
 
 interface GraphTheme {
-    fun getBackgroundColor(): Int
-    fun getBackgroundPaint(): Paint
+    val backgroundColor: Int
+    val backgroundPaint: Paint
     val color: Int
-    fun getTextColor(): Int
-    fun getGridPaint(): Paint
+    val textColor: Int
+    val gridPaint: Paint
     val gridGap: Float
 }
 

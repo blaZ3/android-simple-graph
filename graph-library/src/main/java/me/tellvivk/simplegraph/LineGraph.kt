@@ -28,11 +28,11 @@ class LineGraph<T>(
             val topX = 0f + margin
             val topY = 0f + margin
 
-            it.drawColor(adapter.getTheme().getBackgroundColor())
-            it.drawPaint(adapter.getTheme().getBackgroundPaint())
+            it.drawColor(adapter.getTheme().backgroundColor)
+            it.drawPaint(adapter.getTheme().backgroundPaint)
 
             if (showGrid) {
-                val gridPaint = adapter.getTheme().getGridPaint()
+                val gridPaint = adapter.getTheme().gridPaint
                 for (i in 1..height) {
                     it.drawLine(
                         topX,
@@ -83,9 +83,5 @@ class LineGraph<T>(
     }
 
     private fun plot(canvas: Canvas) {
-        val data = adapter.getData()
-        for(value in data){
-            
-        }
     }
 }

@@ -25,26 +25,30 @@ data class Point<T>(
 
 
 val defaultGraphTheme = object : GraphTheme {
-    override fun getBackgroundColor(): Int {
-        return Color.WHITE
-    }
+    override val backgroundColor: Int
+        get() {
+            return Color.WHITE
+        }
 
-    override fun getBackgroundPaint(): Paint {
-        return Paint().apply { color = getBackgroundColor() }
-    }
+    override val backgroundPaint: Paint
+        get() {
+            return Paint().apply { color = backgroundColor }
+        }
 
     override val color: Int
         get() = Color.BLACK
 
-    override fun getTextColor(): Int {
-        return Color.BLACK
-    }
-
-    override fun getGridPaint(): Paint {
-        return Paint().apply {
-            color = Color.GREEN
+    override val textColor: Int
+        get() {
+            return Color.BLACK
         }
-    }
+
+    override val gridPaint: Paint
+        get() {
+            return Paint().apply {
+                color = Color.GREEN
+            }
+        }
 
     override val gridGap: Float
         get() = 70f
