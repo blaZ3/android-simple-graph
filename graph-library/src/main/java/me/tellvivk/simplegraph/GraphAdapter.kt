@@ -6,8 +6,10 @@ import android.graphics.Paint
 interface GraphTheme {
     fun getBackgroundColor(): Int
     fun getBackgroundPaint(): Paint
+    val color: Int
     fun getTextColor(): Int
     fun getGridPaint(): Paint
+    val gridGap: Float
 }
 
 abstract class GraphAdapter<T> {

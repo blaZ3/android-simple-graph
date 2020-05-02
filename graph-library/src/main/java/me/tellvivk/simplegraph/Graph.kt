@@ -30,14 +30,22 @@ val defaultGraphTheme = object : GraphTheme {
     }
 
     override fun getBackgroundPaint(): Paint {
-        return Paint()
+        return Paint().apply { color = getBackgroundColor() }
     }
+
+    override val color: Int
+        get() = Color.BLACK
 
     override fun getTextColor(): Int {
         return Color.BLACK
     }
 
     override fun getGridPaint(): Paint {
-        return Paint()
+        return Paint().apply {
+            color = Color.GREEN
+        }
     }
+
+    override val gridGap: Float
+        get() = 70f
 }
