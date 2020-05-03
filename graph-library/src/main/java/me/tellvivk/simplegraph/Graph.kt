@@ -17,9 +17,9 @@ interface ILineGraph : Graph {
 }
 
 
-data class Point<T>(
-    val x: T,
-    val y: T,
+data class Point(
+    val x: Float,
+    val y: Float,
     val text: String = ""
 )
 

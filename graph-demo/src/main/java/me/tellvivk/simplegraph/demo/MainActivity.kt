@@ -4,14 +4,15 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import me.tellvivk.simplegraph.GraphAdapter
-import me.tellvivk.simplegraph.GraphTheme
+import me.tellvivk.simplegraph.GraphData
+import me.tellvivk.simplegraph.GraphType.CONTINUOUS
 import me.tellvivk.simplegraph.LineGraph
 import me.tellvivk.simplegraph.Point
 
 class MainActivity : AppCompatActivity() {
 
 
-    private lateinit var adapter: GraphAdapter<Point<Int>>
+    private lateinit var adapter: GraphAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -31,25 +32,34 @@ class MainActivity : AppCompatActivity() {
 }
 
 
-open class DemoAdapter : GraphAdapter<Point<Int>>() {
+open class DemoAdapter : GraphAdapter() {
+    override val graphData: GraphData
+        get() = GraphData(
+            type = CONTINUOUS,
+            xRange = Pair(0L, 10L),
+            yRange = Pair(0L, 10L),
+            points = listOf(
+                Point(1f, 1f, "One"),
+                Point(2f, 2f, "Two"),
+                Point(3f, 3f, "Three"),
+                Point(4f, 4f, "Four"),
+                Point(5f, 5f, "Five"),
+                Point(6f, 6f, "Six")
+            )
+        )
 
-    override fun getData(): List<Point<Int>> {
-        TODO("Not yet implemented")
-    }
+    override val title: String
+        get() {
+            return "Graph title"
+        }
 
-    override fun getTitle(): String {
-        TODO("Not yet implemented")
-    }
+    override val xTitle: String
+        get() {
+            return "X"
+        }
 
-    override fun getXTitle(): String {
-        TODO("Not yet implemented")
-    }
-
-    override fun getYTitle(): String {
-        TODO("Not yet implemented")
-    }
-
-    override fun getTheme(): GraphTheme {
-        return super.getTheme()
-    }
+    override val yTitle: String
+        get() {
+            return "Y"
+        }
 }
