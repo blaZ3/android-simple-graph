@@ -19,6 +19,8 @@ class LineGraph(
 
     private var margin = applyDimension(COMPLEX_UNIT_DIP, 8f, resources.displayMetrics)
     private var graphTextSize = applyDimension(COMPLEX_UNIT_SP, 14f, resources.displayMetrics)
+    private var pointSize = applyDimension(COMPLEX_UNIT_SP, 4f, resources.displayMetrics)
+    private var plotSize = applyDimension(COMPLEX_UNIT_SP, 2f, resources.displayMetrics)
 
     override fun refresh(canvas: Canvas?) {
         canvas?.let {
@@ -54,7 +56,6 @@ class LineGraph(
                 }
             }
 
-
             val borderPaint = Paint().apply {
                 color = adapter.getTheme().color
                 style = Paint.Style.STROKE
@@ -64,7 +65,7 @@ class LineGraph(
             it.drawLine(topX, heightF, widthF, heightF, borderPaint)
             it.drawLine(topX, topX, topX, heightF, borderPaint)
 
-            plot(it, widthF, heightF)
+            plot(it, Pair(widthF, heightF), Pair(topX, topY))
         }
 
     }
@@ -83,7 +84,7 @@ class LineGraph(
         release()
     }
 
-    private fun plot(canvas: Canvas, width: Float, height: Float) {
+    private fun plot(canvas: Canvas, size: Pair<Float, Float>, start: Pair<Float, Float>) {
         adapter.graphData.run {
             if (!isValid()) throw IllegalArgumentException("Graph data is not valid")
 
@@ -96,33 +97,34 @@ class LineGraph(
                         textSize = graphTextSize
                     }
 
+                    //draw X
                     (xRange.first..xRange.second).run {
                         var xPoint = 0f
                         for (i in this step ((xRange.second.toFloat() - xRange.first) / 10).roundToLong()) {
                             canvas.drawText(
-                                "$i",
-                                xPoint,
-                                height,
-                                textPaint
+                                "$i", xPoint, size.second, textPaint
                             )
                             xPoint += width / 10
                         }
                     }
 
 
+                    //draw Y
                     (yRange.first..yRange.second).run {
-                        var yPoint = height
+                        var yPoint = size.second
                         for (i in this step ((yRange.second.toFloat() - yRange.first) / 10).roundToLong()) {
                             canvas.drawText(
-                                "$i",
-                                0f,
-                                yPoint,
-                                textPaint
+                                "$i", start.first, yPoint, textPaint
                             )
                             yPoint -= height / 10
                         }
                     }
 
+                    adapter.graphData.points.forEach { point ->
+                        val pointX = point.x.div((xRange.second - xRange.first).toFloat()) * width
+                        val pointY = height - (point.y.div((yRange.second - yRange.first).toFloat()) * height)
+                        canvas.drawCircle(pointX, pointY, pointSize, textPaint)
+                    }
 
                 }
                 GraphType.DISTINCT -> TODO()
