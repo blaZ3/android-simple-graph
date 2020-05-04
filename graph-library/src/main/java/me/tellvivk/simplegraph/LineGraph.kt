@@ -120,10 +120,21 @@ class LineGraph(
                         }
                     }
 
+                    var previousPoint: Pair<Float, Float>? = null
                     adapter.graphData.points.forEach { point ->
                         val pointX = point.x.div((xRange.second - xRange.first).toFloat()) * width
-                        val pointY = height - (point.y.div((yRange.second - yRange.first).toFloat()) * height)
+                        val pointY =
+                            height - (point.y.div((yRange.second - yRange.first).toFloat()) * height)
                         canvas.drawCircle(pointX, pointY, pointSize, textPaint)
+
+
+                        previousPoint?.let {
+                            canvas.drawLine(it.first, it.second, pointX, pointY, textPaint.apply {
+                                strokeWidth = plotSize
+                            })
+                        }
+
+                        previousPoint = Pair(pointX, pointY)
                     }
 
                 }

@@ -40,11 +40,11 @@ open class DemoAdapter : GraphAdapter() {
             yRange = Pair(0L, 10L),
             points = listOf(
                 Point(1f, 1f, "One"),
-                Point(2f, 2f, "Two"),
+                Point(2f, 3f, "Two"),
                 Point(3f, 3f, "Three"),
-                Point(4f, 4f, "Four"),
+                Point(4f, 7f, "Four"),
                 Point(5f, 5f, "Five"),
-                Point(6f, 6f, "Six")
+                Point(6f, 9f, "Six")
             )
         )
 
