@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import me.tellvivk.simplegraph.GraphAdapter
 import me.tellvivk.simplegraph.GraphData
-import me.tellvivk.simplegraph.GraphType.CONTINUOUS
+import me.tellvivk.simplegraph.GraphType.DISTINCT
 import me.tellvivk.simplegraph.LineGraph
 import me.tellvivk.simplegraph.Point
 
@@ -35,16 +35,17 @@ class MainActivity : AppCompatActivity() {
 open class DemoAdapter : GraphAdapter() {
     override val graphData: GraphData
         get() = GraphData(
-            type = CONTINUOUS,
+            type = DISTINCT,
             xRange = Pair(0L, 10L),
             yRange = Pair(0L, 10L),
+            xValues = listOf(0f, 1f, 2f, 3f, 4f, 5f, 10f),
+            yValues = listOf(0f, 1f, 2f, 3f, 4f, 5f, 10f),
             points = listOf(
                 Point(1f, 1f, "One"),
                 Point(2f, 3f, "Two"),
                 Point(3f, 3f, "Three"),
                 Point(4f, 7f, "Four"),
-                Point(5f, 5f, "Five"),
-                Point(6f, 9f, "Six")
+                Point(5f, 5f, "Five")
             )
         )
 

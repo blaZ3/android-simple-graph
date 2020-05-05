@@ -101,9 +101,7 @@ class LineGraph(
                     (xRange.first..xRange.second).run {
                         var xPoint = 0f
                         for (i in this step ((xRange.second.toFloat() - xRange.first) / 10).roundToLong()) {
-                            canvas.drawText(
-                                "$i", xPoint, size.second, textPaint
-                            )
+                            canvas.drawText("$i", xPoint, size.second, textPaint)
                             xPoint += width / 10
                         }
                     }
@@ -113,33 +111,83 @@ class LineGraph(
                     (yRange.first..yRange.second).run {
                         var yPoint = size.second
                         for (i in this step ((yRange.second.toFloat() - yRange.first) / 10).roundToLong()) {
-                            canvas.drawText(
-                                "$i", start.first, yPoint, textPaint
-                            )
+                            canvas.drawText("$i", start.first, yPoint, textPaint)
                             yPoint -= height / 10
                         }
                     }
 
-                    var previousPoint: Pair<Float, Float>? = null
-                    adapter.graphData.points.forEach { point ->
-                        val pointX = point.x.div((xRange.second - xRange.first).toFloat()) * width
-                        val pointY =
-                            height - (point.y.div((yRange.second - yRange.first).toFloat()) * height)
-                        canvas.drawCircle(pointX, pointY, pointSize, textPaint)
+                    plotValues(
+                        (xRange.second - xRange.first).toFloat(),
+                        (yRange.second - yRange.first).toFloat(),
+                        canvas = canvas, textPaint = textPaint,
+                        points = adapter.graphData.points,
+                        width = size.first, height = size.second,
+                        plotSize = plotSize, pointSize = pointSize
+                    )
 
-
-                        previousPoint?.let {
-                            canvas.drawLine(it.first, it.second, pointX, pointY, textPaint.apply {
-                                strokeWidth = plotSize
-                            })
-                        }
-
-                        previousPoint = Pair(pointX, pointY)
-                    }
 
                 }
-                GraphType.DISTINCT -> TODO()
+                GraphType.DISTINCT -> {
+
+                    //plot the x co ordinates
+                    val textPaint = Paint().apply {
+                        color = adapter.getTheme().textColor
+                        textSize = graphTextSize
+                    }
+
+                    //draw X
+                    (xValues).sorted().run {
+                        var xPoint = 0f
+                        for (i in this) {
+                            canvas.drawText("$i", xPoint, size.second, textPaint)
+                            xPoint += width / xValues.size
+                        }
+                    }
+
+
+                    //draw Y
+                    (yValues).sorted().run {
+                        var yPoint = size.second
+                        for (i in this) {
+                            canvas.drawText("$i", start.first, yPoint, textPaint)
+                            yPoint -= height / yValues.size
+                        }
+                    }
+
+                    plotValues(
+                        xValues.max()!! - xValues.min()!!,
+                        yValues.max()!! - yValues.min()!!,
+                        canvas = canvas, textPaint =  textPaint,
+                        width = size.first, height = size.second,
+                        pointSize = pointSize, plotSize = plotSize,
+                        points = adapter.graphData.points
+                    )
+
+
+                }
             }
         }
+    }
+
+
+}
+
+
+private fun plotValues(
+    xDiff: Float, yDiff: Float, canvas: Canvas, textPaint: Paint,
+    points: List<Point>, width: Float, height: Float,
+    pointSize: Float, plotSize: Float
+) {
+    var previousPoint: Pair<Float, Float>? = null
+    points.forEach { point ->
+        val pointX = point.x.div(xDiff) * width
+        val pointY = height - (point.y.div(yDiff) * height)
+        canvas.drawCircle(pointX, pointY, pointSize, textPaint)
+        previousPoint?.let {
+            canvas.drawLine(it.first, it.second, pointX, pointY, textPaint.apply {
+                strokeWidth = plotSize
+            })
+        }
+        previousPoint = Pair(pointX, pointY)
     }
 }
